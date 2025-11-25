@@ -45,10 +45,9 @@ class HyDA(nn.Module):
         self.bbox_embed = MLP(hidden_dim, hidden_dim, 4, 3)
         self.backbone = backbone
         self.training = training
-        if self.training:
-            self.aux_hub_head = AuxHubHead(in_channels=hidden_dim,
-                                       num_classes=num_classes + 1,
-                                       hidden_dim=hidden_dim)
+        self.aux_hub_head = AuxHubHead(in_channels=hidden_dim,
+                                    num_classes=num_classes + 1,
+                                    hidden_dim=hidden_dim)
         self.aux_loss = aux_loss
 
     def forward(self, samples: NestedTensor):

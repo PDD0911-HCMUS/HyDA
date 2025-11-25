@@ -1,5 +1,5 @@
 model:
-  name: HyDADeTR
+  name: HyDA
   num_classes: 9
   hidden_dim: 256
   

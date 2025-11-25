@@ -21,6 +21,6 @@ common:
   start_epoch: 0
   epochs: 200
 
-  output_dir: /workspace/Controller/AutonomousDrivingController/workdirs/ATDrive
+  output_dir: /workspace/Controller/HyDAController/workdirs
 
   # resume: "/workspace/Controller/AutonomousDrivingController/workdirs/ATDrive/20251110_070720/checkpoint0075.pth"
