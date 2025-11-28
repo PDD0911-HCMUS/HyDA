@@ -124,7 +124,7 @@ class Train:
         common_cfg = self.common_cfg['common']
         batch_size = common_cfg['training']['batch_size']
         size = common_cfg['data']['size']
-        min_box_size, min_box_area = common_cfg['data']['size'], common_cfg['data']['size']
+        min_box_size, min_box_area = common_cfg['data']['min_box_size'], common_cfg['data']['min_box_area']
         
 
         dataset_train = build(
