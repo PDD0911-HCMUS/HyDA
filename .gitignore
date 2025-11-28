@@ -1,7 +1,11 @@
 Controller/AutonomousDrivingController/workdirs
 
 workdirs
+checkpoint/logs
 
 *.pth
+*.onnx
+*.trt
 
 __pycache__
+
