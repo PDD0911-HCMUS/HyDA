@@ -6,7 +6,7 @@ common:
     weight_decay: 1.0e-4
     lr_drop: 50
     clip_max_norm: 0.1
-    num_workers: 2
+    num_workers: 8
 
     print_freq_train: 100
     print_freq_val: 100
