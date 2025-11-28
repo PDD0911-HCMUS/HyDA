@@ -9,8 +9,6 @@ import tensorrt as trt
 import pycuda.autoinit  # noqa: F401
 import pycuda.driver as cuda
 
-
-
 class InferHyDATRT:
     def __init__(self, engine_path):
         # ==== Cấu hình model ====
@@ -60,9 +58,6 @@ class InferHyDATRT:
 
         self._setup_bindings()
 
-    # ------------------------------------------------------------------ #
-    #                    TensorRT buffer / binding set up                #
-    # ------------------------------------------------------------------ #
     def _setup_bindings(self):
         """Chuẩn bị bindings, allocate buffer trên GPU cho input/output."""
         self.bindings = [None] * self.engine.num_bindings
@@ -133,9 +128,6 @@ class InferHyDATRT:
 
         return outputs["pred_logits"], outputs["pred_boxes"], outputs["pred_masks"]
 
-    # ------------------------------------------------------------------ #
-    #                        Tiền xử lý / Hậu xử lý                      #
-    # ------------------------------------------------------------------ #
     def rescale_boxes(self, boxes, orig_size):
         """
         boxes: (N,4) in cxcywh normalized (0..1)
@@ -254,24 +246,21 @@ class InferHyDATRT:
         for box, label, score in zip(boxes_xyxy, labels, scores):
             x1, y1, x2, y2 = box.astype(int)
             cv2.rectangle(frame_bgr, (x1, y1), (x2, y2), (0, 255, 255), 2)
-            cls_name = self.classes[int(label)] if int(label) < len(self.classes) else str(int(label))
-            text = f"{cls_name}:{score:.2f}"
-            cv2.putText(
-                frame_bgr,
-                text,
-                (x1, max(0, y1 - 5)),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.5,
-                (0, 255, 255),
-                1,
-                cv2.LINE_AA,
-            )
+            # cls_name = self.classes[int(label)] if int(label) < len(self.classes) else str(int(label))
+            # text = f"{cls_name}:{score:.2f}"
+            # cv2.putText(
+            #     frame_bgr,
+            #     text,
+            #     (x1, max(0, y1 - 5)),
+            #     cv2.FONT_HERSHEY_SIMPLEX,
+            #     0.5,
+            #     (0, 255, 255),
+            #     1,
+            #     cv2.LINE_AA,
+            # )
 
         return frame_bgr
 
-    # ------------------------------------------------------------------ #
-    #                              RUN                                   #
-    # ------------------------------------------------------------------ #
     def run_image(self, frame_path):
         # Đọc ảnh
         frame = cv2.imread(frame_path)

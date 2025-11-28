@@ -16,10 +16,10 @@ import datasets.transforms as T
 # from config_run import *
 
 class CocoDetection(torchvision.datasets.CocoDetection):
-    def __init__(self, img_folder, ann_file, image_set, root_image_seg_folder, transforms):
+    def __init__(self, img_folder, ann_file, image_set, root_image_seg_folder, transforms, min_box_size, min_box_area):
         super(CocoDetection, self).__init__(img_folder, ann_file)
         self._transforms = transforms
-        self.prepare = ConvertCocoPolysToMask()
+        self.prepare = ConvertCocoPolysToMask(min_box_size, min_box_area)
 
         self.image_seg = os.path.join(root_image_seg_folder, image_set)
 
@@ -39,7 +39,9 @@ class CocoDetection(torchvision.datasets.CocoDetection):
         return img, target
 
 class ConvertCocoPolysToMask(object):
-    def __init__(self):
+    def __init__(self, min_box_size=4, min_box_area=16):
+        self.min_box_size = min_box_size
+        self.min_box_area = min_box_area
         pass
     def __call__(self, image, target, target_seg):
         w, h = image.size
@@ -60,8 +62,27 @@ class ConvertCocoPolysToMask(object):
 
         classes = [obj["category_id"] for obj in anno]
         classes = torch.tensor(classes, dtype=torch.int64)
+        
+        # tính w, h & area sau khi clamp
+        wh = boxes[:, 2:] - boxes[:, :2]     # [N, 2]
+        bw = wh[:, 0]
+        bh = wh[:, 1]
+        box_area = bw * bh
+        
+        # điều kiện hợp lệ:
+        # 1) bbox có diện tích dương
+        # 2) w, h >= min_box_size
+        # 3) area >= min_box_area
+        keep = (
+            (boxes[:, 3] > boxes[:, 1]) &
+            (boxes[:, 2] > boxes[:, 0]) &
+            (bw >= self.min_box_size) &
+            (bh >= self.min_box_size) &
+            (box_area >= self.min_box_area)
+        )
 
-        keep = (boxes[:, 3] > boxes[:, 1]) & (boxes[:, 2] > boxes[:, 0])
+        # keep = (boxes[:, 3] > boxes[:, 1]) & (boxes[:, 2] > boxes[:, 0])
+        
         boxes = boxes[keep]
         classes = classes[keep]
 
@@ -117,7 +138,7 @@ def make_coco_transforms(image_set, size):
     raise ValueError(f'unknown {image_set}')
 
 
-def build(image_set, root_image_folfer, root_anno_folder,  root_image_seg_folder, size):
+def build(image_set, root_image_folfer, root_anno_folder,  root_image_seg_folder, size, min_box_size, min_box_area):
     mode = 'instances'
     if(image_set == "train"):
         img_folder = os.path.join(root_image_folfer, image_set)

@@ -124,20 +124,24 @@ class Train:
         common_cfg = self.common_cfg['common']
         batch_size = common_cfg['training']['batch_size']
         size = common_cfg['data']['size']
+        min_box_size, min_box_area = common_cfg['data']['size'], common_cfg['data']['size']
+        
 
         dataset_train = build(
             "train",
             common_cfg['data']['root_image'],
             common_cfg['data']['root_anno'],
             common_cfg['data']['root_seg'],
-            size
+            size,
+            min_box_size, min_box_area
         )
         dataset_valid = build(
             "val",
             common_cfg['data']['root_image'],
             common_cfg['data']['root_anno'],
             common_cfg['data']['root_seg'],
-            size
+            size,
+            min_box_size, min_box_area
         )
 
         print(f"dataset_valid_length: {len(dataset_valid)}")

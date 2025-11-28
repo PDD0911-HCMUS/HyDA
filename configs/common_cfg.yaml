@@ -16,6 +16,8 @@ common:
     root_anno: /workspace/Datasets/BDD/bdd100k_labels_release
     root_seg: /workspace/Datasets/BDD/bdd100k_labels_release/segment
     size: 640 
+    min_box_size: 4
+    min_box_area: 16
   
   device: cuda
   start_epoch: 0
