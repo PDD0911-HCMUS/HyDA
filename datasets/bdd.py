@@ -146,5 +146,6 @@ def build(image_set, root_image_folfer, root_anno_folder,  root_image_seg_folder
     if(image_set == "val"):
         img_folder = os.path.join(root_image_folfer, image_set)
         ann_file = os.path.join(root_anno_folder, f"{mode}_{image_set}2017.json")
-    dataset = CocoDetection(img_folder, ann_file, image_set, root_image_seg_folder, transforms=make_coco_transforms(image_set, size))
+    dataset = CocoDetection(img_folder, ann_file, image_set, root_image_seg_folder, 
+                            transforms=make_coco_transforms(image_set, size), min_box_size=min_box_size, min_box_area=min_box_area)
     return dataset
