@@ -1,3 +1,4 @@
+import argparse
 import torch
 from torch import nn
 import yaml
@@ -102,21 +103,49 @@ class ExportONNX():
         )
         print(f"Export ONNX to: {self.onnx_path}")
 
+def get_args_parser():
+    parser = argparse.ArgumentParser("Export ONNX", add_help=True)
+    parser.add_argument(
+        "--model_yml",
+        default="configs/model_cfg.yaml",
+        type=str,
+        help="Path to model config",
+    )
+    parser.add_argument(
+        "--common_yml",
+        default="configs/common_cfg.yaml",
+        type=str,
+        help="Path to common config",
+    )
+    parser.add_argument(
+        "--state_dict",
+        default="checkpoint/checkpoint0079.pth",
+        type=str,
+        help="Path to checkpoint",
+    )
+    parser.add_argument(
+        "--onnx_path",
+        default="checkpoint/hyda_r50_e79.onnx",
+        type=str,
+        help="Path to save onnx",
+    )
+    parser.add_argument(
+        "--opset",
+        default=16,
+        type=int
+    )
+    return parser
 
 if __name__ == "__main__":
-
-    model_yml = "configs/model_cfg.yaml"
-    common_yml = "configs/common_cfg.yaml"
-    state_dict = "checkpoint/checkpoint0093.pth"
-    onnx_path = "checkpoint/hyda_r50_e93.onnx"
-    opset = 16  # nếu muốn giữ 17 thì đổi lại = 17
+    parser = get_args_parser()
+    args = parser.parse_args()
 
     export = ExportONNX(
-        model_yml,
-        common_yml,
-        state_dict,
-        onnx_path,
-        opset,
+        model_yml=args.model_yml,
+        common_yml=args.common_yml,
+        state_dict=args.state_dict,
+        onnx_path=args.onnx_path,
+        opset=args.opset,
     )
 
     export.run()

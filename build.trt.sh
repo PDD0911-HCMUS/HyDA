@@ -2,8 +2,8 @@
 set -euo pipefail
 
 #################### CONFIG ####################
-ONNX_PATH="/home/map4/ThisPC/PhD_Journey/Controller/HyDAController/checkpoint/hyda_r50_e93.onnx"
-ENGINE_PATH="/home/map4/ThisPC/PhD_Journey/Controller/HyDAController/checkpoint/hyda_r50_e93_fp32.trt"
+ONNX_PATH="/home/map4/ThisPC/PhD_Journey/Controller/HyDAController/checkpoint/hyda_r50_e79.onnx"
+ENGINE_PATH="/home/map4/ThisPC/PhD_Journey/Controller/HyDAController/checkpoint/hyda_r50_e79_fp32.trt"
 WORKSPACE_MB=4096           # 4GB
 LOG_DIR="./checkpoint/logs"
 #################### END CONFIG ################

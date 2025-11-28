@@ -245,7 +245,7 @@ class InferHyDATRT:
         # Vẽ bbox + label
         for box, label, score in zip(boxes_xyxy, labels, scores):
             x1, y1, x2, y2 = box.astype(int)
-            cv2.rectangle(frame_bgr, (x1, y1), (x2, y2), (0, 255, 255), 2)
+            cv2.rectangle(frame_bgr, (x1, y1), (x2, y2), (0, 255, 255), 1)
             # cls_name = self.classes[int(label)] if int(label) < len(self.classes) else str(int(label))
             # text = f"{cls_name}:{score:.2f}"
             # cv2.putText(
