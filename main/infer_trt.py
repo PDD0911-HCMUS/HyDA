@@ -8,7 +8,7 @@ import os
 import tensorrt as trt
 import pycuda.autoinit  # noqa: F401
 import pycuda.driver as cuda
-#Checkjjjj
+#Checkjjjj 222222
 class InferHyDATRT:
     def __init__(self, engine_path):
         # ==== Cấu hình model ====
