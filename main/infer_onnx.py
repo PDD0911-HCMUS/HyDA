@@ -18,7 +18,7 @@ class InferHyDAONNX():
         # Create ONNXRuntime session
         self.sess = ort.InferenceSession(
             self.onnx_path,
-            providers=["CUDAExecutionProvider"]
+            providers=["CUDAExecutionProvider"]  
         )
         self.input_name = self.sess.get_inputs()[0].name
         
