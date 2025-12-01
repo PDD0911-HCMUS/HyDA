@@ -56,7 +56,7 @@ class InferHyDATRT:
         self.input_name = "images"
         self.output_names = ["pred_logits", "pred_boxes", "pred_masks"]
 
-        self._setup_bindings()
+        self._setup_bindings()  
 
     def _setup_bindings(self):
         """Chuẩn bị bindings, allocate buffer trên GPU cho input/output."""
