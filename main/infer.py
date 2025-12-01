@@ -9,7 +9,7 @@ from models.hyda import build_model
 import torch
 import torchvision.transforms as T
 torch.set_grad_enabled(False)
-
+#chẹc
 class InferHyDA():
     def __init__(self,model_yml,
                 #  common_yml,criterion_yml, 
