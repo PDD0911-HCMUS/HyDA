@@ -25,4 +25,4 @@ common:
 
   output_dir: /workspace/Controller/HyDAController/workdirs
 
-  # resume: "/workspace/Controller/AutonomousDrivingController/workdirs/ATDrive/20251110_070720/checkpoint0075.pth"
+  # resume: "/workspace/Controller/HyDAController/workdirs/20251215_041900/checkpoint0039.pth"
