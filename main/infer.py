@@ -177,12 +177,12 @@ class InferHyDA():
         pass
     
 if __name__ == '__main__':
-    model_yml = "configs/model_cfg.yaml"
+    model_yml = "/home/duypd/ThisPC-DuyPC/SG-Retrieval/Controller/HyDAController/configs/model_cfg.yaml"
     # common_yml = "common_cfg.yaml"
     # criterion_yml = "criterion_cfg.yaml"
-    state_dict = "checkpoints/checkpoint0093.pth"
+    state_dict = "/home/duypd/ThisPC-DuyPC/SG-Retrieval/Controller/HyDAController/checkpoint/checkpoint0151.pth"
 
-    image_file = 'data/bdd100k/bdd100k_images_100k/val/ca6412a2-3db85e24.jpg'
+    image_file = '/home/duypd/ThisPC-DuyPC/SG-Retrieval/Datasets/BDD/bdd100k/bdd100k_images_100k/val/b2cd33bd-a5043d29.jpg'
 
     infer = InferHyDA(
         model_yml, 
